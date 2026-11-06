@@ -20,3 +20,10 @@ whitenoise==6.9.0
 # Environment Variables:
 # Key: DJANGO_SECRET_KEY
 # Value: Click Generate—don’t use the example placeholder or commit a secret to GitHub.
+
+
+
+
+# DJANGO_SUPERUSER_USERNAME — choose your admin username
+# DJANGO_SUPERUSER_EMAIL — your email
+# DJANGO_SUPERUSER_PASSWORD — choose a strong password; don’t put it in GitHub
