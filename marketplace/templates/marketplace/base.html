@@ -1,0 +1,190 @@
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+<!doctype html>
+<html lang="{{ LANGUAGE_CODE }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#F9F8F6">
+    <meta name="description" content="CRAFTS BAPPY — handmade ceramics and textiles by independent Korean artisans.">
+    <title>{% block title %}{% trans "Objects with a story" %} — CRAFTS BAPPY{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Noto Sans KR", "sans-serif"],
+              display: ["Cormorant Garamond", "Noto Sans KR", "serif"]
+            },
+            colors: {
+              paper: "#F9F8F6",
+              ink: "#1A1A1A",
+              olive: "#626C50",
+              terracotta: "#A86F5A",
+              sage: "#626C50",
+              "sage-light": "#E5E8DF",
+              clay: "#A86F5A",
+              "clay-light": "#F1E4DE",
+              cream: "#F9F8F6",
+              muted: "#78716C"
+            },
+            boxShadow: {
+              soft: "0 14px 36px rgba(26, 26, 26, .08)"
+            }
+          }
+        }
+      };
+    </script>
+    <script>
+      const savedTheme = localStorage.getItem("theme");
+      const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      if (savedTheme === "dark" || (!savedTheme && systemPrefersDark)) {
+        document.documentElement.classList.add("dark");
+        document.querySelector('meta[name="theme-color"]').content = "#121212";
+      }
+    </script>
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <style>
+      html { scroll-behavior: smooth; }
+      html.dark { color-scheme: dark; }
+      body { background: #F9F8F6; }
+      html.dark body { background: #121212; color: #F1F0ED; }
+      ::selection { background: #d7ddcb; color: #1A1A1A; }
+      html.dark ::selection { background: #626C50; color: #F9F8F6; }
+      @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+        *, *::before, *::after {
+          animation-duration: .01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: .01ms !important;
+        }
+      }
+    </style>
+    {% block extra_head %}{% endblock %}
+  </head>
+  <body class="min-h-screen bg-paper font-sans text-ink antialiased transition-colors duration-300 dark:bg-[#121212] dark:text-stone-100">
+    <a href="#main-content" class="sr-only z-[100] bg-ink px-5 py-3 text-white focus:not-sr-only focus:fixed focus:left-4 focus:top-4">{% trans "Skip to content" %}</a>
+
+    <header class="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-6 sm:pt-5">
+      <nav aria-label="{% trans 'Main navigation' %}" class="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-x-3 gap-y-2 border border-white/60 bg-paper/90 px-4 py-3 shadow-[0_8px_32px_rgba(26,26,26,.06)] backdrop-blur-xl transition-colors dark:border-white/10 dark:bg-[#171717]/90 sm:flex-nowrap sm:rounded-full sm:px-7">
+        <a href="{% url 'home' %}" class="flex shrink-0 items-center gap-2.5" aria-label="CRAFTS BAPPY">
+          <span class="grid h-8 w-8 place-items-center rounded-full bg-olive text-white sm:h-9 sm:w-9">
+            <svg viewBox="0 0 24 24" fill="none" class="h-5 w-5" aria-hidden="true">
+              <path d="M5 8.5c1.8-1 4.2-1.5 7-1.5s5.2.5 7 1.5M6.5 9.5l1 7a2 2 0 0 0 2 1.7h5a2 2 0 0 0 2-1.7l1-7M9 5.5c.8-.7 1.8-1 3-1s2.2.3 3 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          <span class="font-sans text-lg font-semibold tracking-tight sm:text-xl">CRAFTS BAPPY<span class="text-terracotta dark:text-orange-200">.</span></span>
+        </a>
+
+        <div class="order-2 flex items-center gap-1 sm:order-3 sm:gap-2">
+          <form action="{% url 'set_language' %}" method="post" class="flex items-center">
+            {% csrf_token %}
+            <input name="next" type="hidden" value="{{ request.get_full_path }}">
+            <label for="language-switcher" class="sr-only">{% trans "Choose language" %}</label>
+            <select id="language-switcher" name="language" onchange="switchLanguage(this)" class="h-9 max-w-[108px] cursor-pointer border border-stone-300 bg-transparent px-1 text-[11px] font-medium text-stone-900 outline-none focus:outline-none dark:border-stone-600 dark:text-white sm:max-w-none sm:px-2 sm:text-xs">
+              <option value="en" class="bg-white text-stone-900 dark:bg-stone-800 dark:text-white" {% if LANGUAGE_CODE == "en" %}selected{% endif %}>English</option>
+              <option value="ko" class="bg-white text-stone-900 dark:bg-stone-800 dark:text-white" {% if LANGUAGE_CODE == "ko" %}selected{% endif %}>한국어</option>
+            </select>
+          </form>
+          <button id="theme-toggle" type="button" aria-label="{% trans 'Switch to dark mode' %}" aria-pressed="false" class="grid h-9 w-9 place-items-center rounded-full border border-stone-200 text-stone-700 transition hover:bg-stone-100 dark:border-stone-700 dark:text-stone-200 dark:hover:bg-stone-800">
+            <svg id="theme-icon-sun" viewBox="0 0 24 24" fill="none" class="hidden h-4 w-4" aria-hidden="true"><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.5"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <svg id="theme-icon-moon" viewBox="0 0 24 24" fill="none" class="h-4 w-4" aria-hidden="true"><path d="M20.2 15.1A8.5 8.5 0 0 1 8.9 3.8 8.5 8.5 0 1 0 20.2 15.1Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+
+        <div class="order-3 flex w-full items-center justify-between border-t border-stone-200 pt-2 dark:border-stone-800 sm:order-2 sm:w-auto sm:flex-1 sm:justify-end sm:gap-5 sm:border-0 sm:pt-0">
+          <div class="flex items-center gap-1 sm:gap-5">
+            <a href="{% url 'home' %}" class="hidden text-xs text-stone-700 transition hover:text-olive dark:text-stone-300 dark:hover:text-white sm:inline">{% trans "Home" %}</a>
+            <a href="{% url 'drop_calendar' %}" class="whitespace-nowrap px-1 py-2 text-[11px] text-stone-700 transition hover:text-olive dark:text-stone-300 dark:hover:text-white sm:text-xs">{% trans "The drops" %}</a>
+            <a href="{% url 'cart' %}" class="inline-flex items-center gap-1.5 whitespace-nowrap px-1 py-2 text-[11px] text-stone-700 transition hover:text-olive dark:text-stone-300 dark:hover:text-white sm:text-xs">
+              {% trans "Bag" %}
+              <svg viewBox="0 0 24 24" fill="none" class="h-4 w-4" aria-hidden="true"><path d="M5 8h14l-1 12H6L5 8Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M9 9V6a3 3 0 0 1 6 0v3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </a>
+          </div>
+          <div class="flex shrink-0 items-center gap-2">
+            {% if user.is_authenticated %}
+              <span class="hidden max-w-32 truncate text-[11px] text-stone-500 dark:text-stone-400 sm:inline">{% blocktrans with username=user.username %}Welcome, {{ username }}{% endblocktrans %}</span>
+              <a href="{% url 'order_history' %}" class="whitespace-nowrap px-1 py-2 text-[10px] font-medium text-stone-700 transition hover:text-olive dark:text-stone-300 dark:hover:text-white sm:text-xs">{% trans "My Orders" %}</a>
+              <form method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="whitespace-nowrap rounded-full border border-stone-300 px-3 py-2 text-[10px] font-medium transition hover:border-ink hover:bg-ink hover:text-white dark:border-stone-700 dark:hover:border-stone-500 sm:text-xs dark:hover:bg-stone-700">{% trans "Logout" %}</button>
+              </form>
+            {% else %}
+              <a href="{% url 'login' %}" class="whitespace-nowrap px-2 py-2 text-[10px] font-medium text-stone-700 transition hover:text-olive dark:text-stone-300 dark:hover:text-white sm:text-xs">{% trans "Login" %}</a>
+              <a href="{% url 'signup' %}" class="whitespace-nowrap rounded-full bg-olive px-3 py-2 text-[10px] font-medium text-white transition hover:bg-ink sm:px-4 sm:text-xs dark:hover:bg-stone-700">{% trans "Sign up" %}</a>
+            {% endif %}
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    {% if messages %}
+      <div class="fixed inset-x-0 top-28 z-40 mx-auto flex max-w-2xl flex-col gap-2 px-4 sm:top-24" aria-live="polite">
+        {% for message in messages %}
+          <div class="border border-stone-200 bg-white/95 px-5 py-3 text-sm shadow-lg backdrop-blur dark:border-stone-700 dark:bg-stone-900/95 {% if message.tags == 'error' %}text-terracotta dark:text-orange-200{% else %}text-olive dark:text-emerald-300{% endif %}">{{ message }}</div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <main id="main-content">
+      {% block content %}{% endblock %}
+    </main>
+
+    <footer class="border-t border-stone-200 bg-[#F3F1ED] transition-colors dark:border-stone-800 dark:bg-[#171717]">
+      <div class="mx-auto flex max-w-7xl flex-col gap-7 px-5 py-10 sm:px-8 md:flex-row md:items-end md:justify-between md:py-12">
+        <div>
+          <a href="{% url 'home' %}" class="font-sans text-xl font-semibold tracking-tight">CRAFTS BAPPY<span class="text-terracotta dark:text-orange-200">.</span></a>
+          <p class="mt-2 max-w-sm text-sm leading-6 text-stone-500 dark:text-stone-400">{% trans "Small batches, thoughtful hands, objects made for everyday life." %}</p>
+        </div>
+        <div class="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-stone-500 dark:text-stone-400">
+          <a href="{% url 'drop_calendar' %}" class="transition hover:text-ink dark:hover:text-stone-100">{% trans "Explore the drops" %}</a>
+          <span>{% trans "Made slowly. Kept for a long time." %}</span>
+        </div>
+      </div>
+      <div class="border-t border-stone-200 px-5 py-4 text-center text-[10px] text-stone-500 dark:border-stone-800 dark:text-stone-400 sm:px-8">© {% now "Y" %} CRAFTS BAPPY · {% trans "Independent makers, collected with care." %}</div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script>
+      if (window.AOS) {
+        AOS.init({
+          duration: 700,
+          easing: "ease-out-cubic",
+          once: true,
+          offset: 70,
+          disable: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        });
+      }
+      function switchLanguage(select) {
+        const path = window.location.pathname.replace(/^\/(en|ko)(?=\/|$)/, "") || "/";
+        select.form.elements.next.value = `/${select.value}${path}${window.location.search}${window.location.hash}`;
+        select.form.submit();
+      }
+      (() => {
+        const toggle = document.getElementById("theme-toggle");
+        const sun = document.getElementById("theme-icon-sun");
+        const moon = document.getElementById("theme-icon-moon");
+        function syncTheme() {
+          const dark = document.documentElement.classList.contains("dark");
+          toggle.setAttribute("aria-pressed", String(dark));
+          toggle.setAttribute("aria-label", dark ? "{% trans 'Switch to light mode' %}" : "{% trans 'Switch to dark mode' %}");
+          sun.classList.toggle("hidden", !dark);
+          moon.classList.toggle("hidden", dark);
+          document.querySelector('meta[name="theme-color"]').content = dark ? "#121212" : "#F9F8F6";
+        }
+        syncTheme();
+        toggle.addEventListener("click", () => {
+          const dark = document.documentElement.classList.toggle("dark");
+          localStorage.setItem("theme", dark ? "dark" : "light");
+          syncTheme();
+        });
+      })();
+    </script>
+    {% block extra_js %}{% endblock %}
+  </body>
+</html>

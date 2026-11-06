@@ -1,0 +1,106 @@
+{% extends "marketplace/base.html" %}
+
+{% load i18n %}
+
+{% block title %}{% trans "The drop calendar" %} — CRAFTS BAPPY{% endblock %}
+
+{% block content %}
+  <section class="relative overflow-hidden bg-[#e8e9df] px-5 pb-14 pt-32 transition-colors duration-300 dark:bg-stone-800 sm:px-8 sm:pb-20 sm:pt-40">
+    <div class="absolute -right-20 -top-20 h-72 w-72 rounded-full border border-sage/15 sm:h-96 sm:w-96 dark:border-stone-700"></div>
+    <div class="absolute -right-10 -top-10 h-52 w-52 rounded-full border border-sage/15 sm:h-72 sm:w-72 dark:border-stone-700"></div>
+    <div class="relative mx-auto max-w-7xl" data-aos="fade-up">
+      <p class="text-[10px] font-semibold uppercase tracking-[.24em] text-sage sm:text-xs dark:text-[#c7d0b4]">{% trans "A little something, every Saturday" %}</p>
+      <h1 class="mt-4 max-w-3xl font-display text-5xl font-medium leading-[1.05] tracking-tight sm:text-6xl lg:text-7xl">{% trans "The drop calendar" %}<span class="text-clay dark:text-orange-200">.</span></h1>
+      <p class="mt-5 max-w-xl text-sm leading-7 text-muted sm:text-base dark:text-stone-400">{% trans "New work from independent makers, released in small batches at 7:00 PM. See what’s coming, and revisit the collections we’ve loved." %}</p>
+      <div class="mt-8 flex flex-wrap gap-3 text-xs font-medium">
+        <a href="#upcoming" class="rounded-full bg-sage px-5 py-2.5 text-white transition hover:bg-ink dark:hover:bg-stone-700">{% trans "Coming up" %}</a>
+        <a href="#past" class="rounded-full border border-sage/25 bg-paper/60 px-5 py-2.5 text-sage transition hover:bg-paper dark:text-[#c7d0b4] dark:border-stone-700">{% trans "Past drops" %}</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="upcoming" class="scroll-mt-24 px-5 py-16 sm:px-8 sm:py-24">
+    <div class="mx-auto max-w-7xl">
+      <div class="mb-9 flex items-end justify-between gap-4" data-aos="fade-up">
+        <div>
+          <p class="text-[10px] font-semibold uppercase tracking-[.22em] text-clay sm:text-xs dark:text-orange-200">{% trans "Save the date" %}</p>
+          <h2 class="mt-2 font-display text-3xl font-medium sm:text-4xl">{% trans "Coming up" %}</h2>
+        </div>
+        <span class="hidden text-sm text-muted sm:block dark:text-stone-400">{% trans "Saturday, always at 7:00 PM" %}</span>
+      </div>
+
+      <div class="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+        {% for drop in drops %}
+          {% if drop.drop_datetime >= now %}
+            <article class="group overflow-hidden rounded-[1.8rem] border border-ink/5 bg-paper shadow-[0_8px_35px_rgba(48,47,39,.04)] transition duration-300 hover:-translate-y-1 hover:shadow-soft dark:border-stone-700 dark:bg-stone-800" data-aos="fade-up" data-aos-delay="{{ forloop.counter0 }}00">
+              <div class="relative aspect-[16/9] overflow-hidden bg-[#e4e0d5] dark:bg-stone-700">
+                {% with first_product=drop.products.all|first %}
+                  {% if first_product %}
+                    <img src="{{ first_product.image_url }}" alt="{{ drop.title }} {% trans 'collection' %}" loading="lazy" class="h-full w-full object-cover transition duration-700 group-hover:scale-105">
+                  {% else %}
+                    <div class="grid h-full place-items-center bg-gradient-to-br from-sage-light via-[#e9e3d6] to-clay-light dark:from-stone-700 dark:via-stone-800 dark:to-stone-700">
+                      <svg viewBox="0 0 80 80" fill="none" class="h-20 w-20 text-sage/50" aria-hidden="true"><path d="M17 29c7-4 15-6 23-6s16 2 23 6M22 32l4 27c1 5 4 8 9 8h10c5 0 8-3 9-8l4-27M31 19c2-3 5-4 9-4s7 1 9 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                  {% endif %}
+                {% endwith %}
+                <span class="absolute left-4 top-4 rounded-full border border-white/50 bg-cream/85 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[.16em] text-sage backdrop-blur dark:border-stone-600 dark:bg-stone-800/90 dark:text-stone-200">{% trans "Upcoming" %}</span>
+              </div>
+              <div class="p-6 sm:p-7">
+                <p class="text-[10px] font-semibold uppercase tracking-[.18em] text-clay dark:text-orange-200">{{ drop.drop_datetime|date:"l, F j" }}</p>
+                <h3 class="mt-2 font-display text-2xl font-medium">{{ drop.title }}</h3>
+                <p class="mt-2 text-sm text-muted dark:text-stone-400">{{ drop.drop_datetime|date:"g:i A" }} · {% trans "Your local time" %}</p>
+                <div class="mt-6 flex items-center justify-between gap-4 border-t border-ink/10 pt-5 dark:border-stone-700">
+                  <span class="text-xs text-muted dark:text-stone-400">{% blocktrans with count=drop.products.count %}{{ count }} thoughtfully made pieces{% endblocktrans %}</span>
+                  <a href="{% url 'home' %}#collection" class="inline-flex shrink-0 items-center gap-2 rounded-full bg-sage px-4 py-2.5 text-xs font-semibold text-white transition hover:bg-ink dark:hover:bg-stone-700">
+                    {% trans "View products" %}
+                    <svg viewBox="0 0 20 20" fill="none" class="h-4 w-4" aria-hidden="true"><path d="M4 10h12m0 0-5-5m5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </a>
+                </div>
+              </div>
+            </article>
+          {% endif %}
+        {% endfor %}
+      </div>
+      {% if not has_upcoming_drops %}
+        <div class="mt-5 rounded-[1.8rem] border border-dashed border-ink/15 bg-paper px-6 py-12 text-center dark:bg-stone-800 dark:border-stone-700" data-aos="fade-up">
+          <h3 class="font-display text-2xl">{% trans "A new collection is on its way" %}</h3>
+          <p class="mt-2 text-sm text-muted dark:text-stone-400">{% trans "Check back soon for the next Saturday drop." %}</p>
+        </div>
+      {% endif %}
+    </div>
+  </section>
+
+  <section id="past" class="scroll-mt-24 bg-[#efeee8] px-5 py-16 transition-colors duration-300 dark:bg-stone-950 sm:px-8 sm:py-24">
+    <div class="mx-auto max-w-7xl">
+      <div class="mb-9" data-aos="fade-up">
+        <p class="text-[10px] font-semibold uppercase tracking-[.22em] text-sage sm:text-xs dark:text-[#c7d0b4]">{% trans "A look back" %}</p>
+        <h2 class="mt-2 font-display text-3xl font-medium sm:text-4xl">{% trans "Past drops" %}</h2>
+      </div>
+      <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+        {% for drop in drops %}
+          {% if drop.drop_datetime < now %}
+            <article class="flex flex-col justify-between rounded-[1.5rem] border border-ink/5 bg-paper p-6 transition hover:shadow-soft dark:border-stone-700 dark:bg-stone-800 sm:p-7" data-aos="fade-up" data-aos-delay="{{ forloop.counter0 }}00">
+              <div class="flex items-start justify-between gap-4">
+                <div>
+                  <p class="text-[10px] font-semibold uppercase tracking-[.18em] text-muted dark:text-stone-400">{{ drop.drop_datetime|date:"F j, Y" }}</p>
+                  <h3 class="mt-2 font-display text-2xl font-medium">{{ drop.title }}</h3>
+                  <p class="mt-2 text-sm text-muted dark:text-stone-400">{% blocktrans with count=drop.products.count %}{{ count }} pieces from the makers{% endblocktrans %}</p>
+                </div>
+                <span class="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-sage-light text-sage dark:text-[#c7d0b4] dark:bg-stone-800">
+                  <svg viewBox="0 0 24 24" fill="none" class="h-5 w-5" aria-hidden="true"><path d="m5 12 4 4L19 6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+              </div>
+              <a href="{% url 'home' %}#collection" class="mt-6 inline-flex w-fit items-center gap-2 border-b border-ink/20 pb-1 text-xs font-semibold text-ink transition hover:border-clay hover:text-clay dark:text-stone-100 dark:border-stone-700 dark:hover:text-orange-200 dark:hover:border-orange-300">
+                {% trans "Explore current pieces" %}
+                <svg viewBox="0 0 20 20" fill="none" class="h-4 w-4" aria-hidden="true"><path d="M4 10h12m0 0-5-5m5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+            </article>
+          {% endif %}
+        {% endfor %}
+      </div>
+      {% if not has_past_drops %}
+        <p class="mt-5 text-sm text-muted dark:text-stone-400" data-aos="fade-up">{% trans "Our story is just beginning. Past collections will appear here." %}</p>
+      {% endif %}
+    </div>
+  </section>
+{% endblock %}

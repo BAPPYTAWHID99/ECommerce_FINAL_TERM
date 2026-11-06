@@ -1,0 +1,71 @@
+{% extends "marketplace/base.html" %}
+
+{% load i18n %}
+
+{% block title %}{% trans "Order confirmed" %} — CRAFTS BAPPY{% endblock %}
+
+{% block content %}
+  <section class="relative isolate overflow-hidden px-5 pb-20 pt-32 sm:px-8 sm:pb-28 sm:pt-40">
+    <div class="absolute left-1/2 top-24 -z-10 h-80 w-80 -translate-x-1/2 rounded-full bg-sage-light/70 blur-3xl sm:h-[32rem] sm:w-[32rem]"></div>
+    <div class="mx-auto max-w-3xl text-center">
+      <div class="mx-auto grid h-24 w-24 place-items-center rounded-full bg-sage text-white shadow-[0_20px_50px_rgba(101,116,93,.25)] sm:h-28 sm:w-28" data-aos="zoom-in">
+        <svg viewBox="0 0 48 48" fill="none" class="h-12 w-12 sm:h-14 sm:w-14" aria-hidden="true">
+          <path d="m13 24 7.5 7.5L36 16" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+
+      <p class="mt-8 text-[10px] font-semibold uppercase tracking-[.24em] text-sage sm:text-xs dark:text-[#c7d0b4]" data-aos="fade-up" data-aos-delay="100">{% trans "A lovely choice" %}</p>
+      <h1 class="mt-3 font-display text-5xl font-medium tracking-tight sm:text-6xl">{% trans "It’s yours" %}<span class="text-clay dark:text-orange-200">.</span></h1>
+      <p class="mx-auto mt-4 max-w-xl text-sm leading-7 text-muted sm:text-base dark:text-stone-400">{% trans "Thank you for supporting handmade artisans! Your order is confirmed, and a thoughtful piece is on its way to becoming part of your everyday." %}</p>
+
+      <div class="mx-auto mt-9 max-w-xl rounded-[1.8rem] border border-ink/5 bg-paper p-6 text-left shadow-soft dark:border-stone-700 dark:bg-stone-800 sm:p-8" data-aos="fade-up" data-aos-delay="180">
+        <div class="flex flex-col gap-2 border-b border-ink/10 pb-5 sm:flex-row sm:items-center sm:justify-between dark:border-stone-700">
+          <div>
+            <p class="text-[10px] font-semibold uppercase tracking-[.18em] text-muted dark:text-stone-400">{% trans "Order number" %}</p>
+            <p class="mt-1 font-display text-2xl font-medium">{{ order.order_number }}</p>
+          </div>
+          <span class="inline-flex w-fit items-center gap-2 rounded-full bg-sage-light px-3 py-1.5 text-xs font-semibold text-sage dark:text-[#c7d0b4] dark:bg-stone-800">
+            <span class="h-1.5 w-1.5 rounded-full bg-sage"></span> {% trans "Confirmed" %}
+          </span>
+        </div>
+
+        <div class="divide-y divide-ink/10">
+          {% for item in order.items.all %}
+            <div class="flex items-center justify-between gap-4 py-4">
+              <div class="flex min-w-0 items-center gap-3">
+                <div class="h-12 w-12 shrink-0 overflow-hidden rounded-xl bg-[#e9e5db]">
+                  <img src="{{ item.product.image_url }}" alt="" class="h-full w-full object-cover">
+                </div>
+                <div class="min-w-0">
+                  <p class="truncate text-sm font-medium">{{ item.product.name }}</p>
+                  <p class="mt-0.5 text-xs text-muted dark:text-stone-400">{% trans "Quantity" %} {{ item.quantity }}</p>
+                </div>
+              </div>
+              <span class="shrink-0 text-sm">₩{{ item.price_at_purchase|floatformat:"0" }} × {{ item.quantity }}</span>
+            </div>
+          {% endfor %}
+        </div>
+
+        <div class="flex items-center justify-between border-t border-ink/10 pt-5 dark:border-stone-700">
+          <div>
+            <p class="text-xs text-muted dark:text-stone-400">{% trans "Placed for" %} {{ order.customer_name }}</p>
+            <p class="mt-1 text-xs text-muted dark:text-stone-400">{{ order.customer_email }}</p>
+            {% if order.shipping_address %}
+              <p class="mt-2 max-w-xs text-xs leading-5 text-muted dark:text-stone-400">{{ order.shipping_address }}, {{ order.city }} {{ order.postal_code }}, {{ order.country }}</p>
+            {% endif %}
+          </div>
+          <div class="text-right">
+            <p class="text-[10px] font-semibold uppercase tracking-[.16em] text-muted dark:text-stone-400">{% trans "Total" %}</p>
+            <p class="mt-1 font-display text-2xl">₩{{ order.total_amount|floatformat:"0" }}</p>
+          </div>
+        </div>
+      </div>
+
+      <a href="{% url 'home' %}" class="mt-8 inline-flex min-h-12 items-center justify-center gap-3 rounded-full bg-ink px-7 text-sm font-semibold text-white transition hover:bg-sage" data-aos="fade-up" data-aos-delay="250">
+        {% trans "Return to home" %}
+        <svg viewBox="0 0 20 20" fill="none" class="h-4 w-4" aria-hidden="true"><path d="M4 10h12m0 0-5-5m5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <p class="mt-5 text-xs text-muted dark:text-stone-400" data-aos="fade-up" data-aos-delay="300">{% trans "Made slowly. Chosen with care. Thank you." %}</p>
+    </div>
+  </section>
+{% endblock %}

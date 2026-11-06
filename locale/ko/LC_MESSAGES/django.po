@@ -1,0 +1,477 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ko\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Objects with a story"
+msgstr "이야기가 담긴 물건"
+
+msgid "Skip to content"
+msgstr "본문으로 건너뛰기"
+
+msgid "Main navigation"
+msgstr "주 메뉴"
+
+msgid "Choose language"
+msgstr "언어 선택"
+
+msgid "Switch to dark mode"
+msgstr "다크 모드로 전환"
+
+msgid "Switch to light mode"
+msgstr "라이트 모드로 전환"
+
+msgid "Home"
+msgstr "홈"
+
+msgid "The drops"
+msgstr "토요일 드롭"
+
+msgid "Bag"
+msgstr "장바구니"
+
+msgid "Welcome, %(username)s"
+msgstr "%(username)s님, 환영합니다"
+
+msgid "Logout"
+msgstr "로그아웃"
+
+msgid "Login"
+msgstr "로그인"
+
+msgid "Sign up"
+msgstr "회원가입"
+
+msgid "Small batches, thoughtful hands, objects made for everyday life."
+msgstr "정성스러운 손길로 소량 제작한, 일상을 위한 물건."
+
+msgid "Explore the drops"
+msgstr "드롭 둘러보기"
+
+msgid "Made slowly. Kept for a long time."
+msgstr "천천히 만들고, 오래도록 곁에 둡니다."
+
+msgid "Independent makers, collected with care."
+msgstr "독립 작가의 작품을 정성껏 모았습니다."
+
+msgid "A few details so your handmade pieces find their way to you."
+msgstr "수공예 작품을 안전하게 보내기 위한 정보를 입력해 주세요."
+
+msgid "A good choice"
+msgstr "좋은 선택이에요"
+
+msgid "A little something, every Saturday"
+msgstr "매주 토요일, 새로운 작품"
+
+msgid "A little summary"
+msgstr "주문 요약"
+
+msgid "A look back"
+msgstr "지난 드롭"
+
+msgid "A lovely choice"
+msgstr "멋진 선택이에요"
+
+msgid "A new collection is on its way"
+msgstr "새로운 컬렉션을 준비하고 있어요"
+
+msgid "A piece to keep"
+msgstr "오래 간직할 작품"
+
+msgid "A place for good things"
+msgstr "좋은 물건을 만나는 곳"
+
+msgid "Add to bag"
+msgstr "장바구니에 담기"
+
+msgid "Almost yours"
+msgstr "이제 곧 내 것이 됩니다"
+
+msgid "Already have an account?"
+msgstr "이미 계정이 있으신가요?"
+
+msgid "Back to the collection"
+msgstr "컬렉션으로 돌아가기"
+
+msgid "Back to your bag"
+msgstr "장바구니로 돌아가기"
+
+msgid "By"
+msgstr "작가"
+
+msgid "By placing this demo order, you confirm the details above are correct."
+msgstr "데모 주문을 완료하면 위 정보가 정확함을 확인하는 것입니다."
+
+msgid "Check back soon for the next Saturday drop."
+msgstr "다음 토요일 드롭을 기대해 주세요."
+
+msgid "City"
+msgstr "도시"
+
+msgid "Come on in"
+msgstr "다시 오신 것을 환영합니다"
+
+msgid "Coming up"
+msgstr "예정된 드롭"
+
+msgid "Complete purchase"
+msgstr "구매 완료"
+
+msgid "Confirmed"
+msgstr "주문 확정"
+
+msgid "Continue browsing"
+msgstr "계속 둘러보기"
+
+msgid "Country"
+msgstr "국가"
+
+msgid "Create account"
+msgstr "계정 만들기"
+
+msgid "Create an account"
+msgstr "계정 만들기"
+
+msgid "Create an account and keep the makers’ market close."
+msgstr "계정을 만들고 작가들의 마켓을 가까이에서 만나보세요."
+
+msgid "Each piece is part of a limited handmade batch."
+msgstr "각 작품은 한정 수량으로 정성껏 제작됩니다."
+
+msgid "Each purchase supports an independent maker and their craft."
+msgstr "구매하실 때마다 독립 작가와 그들의 작업을 응원합니다."
+
+msgid "Email address"
+msgstr "이메일 주소"
+
+msgid "Explore current pieces"
+msgstr "현재 작품 둘러보기"
+
+msgid "Explore the collection"
+msgstr "컬렉션 둘러보기"
+
+msgid "Find your piece"
+msgstr "마음에 드는 작품 찾기"
+
+msgid "Handmade pieces, chosen just for you."
+msgstr "당신을 위해 고른 수공예 작품."
+
+msgid "Handmade, found here"
+msgstr "손으로 만든 작품을 만나는 곳"
+
+msgid "It’s yours"
+msgstr "이제 당신의 작품입니다"
+
+msgid "Join CRAFTS BAPPY"
+msgstr "CRAFTS BAPPY에 가입하기"
+
+msgid "My Orders"
+msgstr "내 주문"
+
+msgid "Your purchases"
+msgstr "구매 내역"
+
+msgid "A record of the handmade pieces you’ve chosen."
+msgstr "지금까지 선택하신 수공예 작품을 확인하세요."
+
+msgid "Order total"
+msgstr "주문 합계"
+
+msgid "Items in this order"
+msgstr "주문 상품"
+
+msgid "item(s)"
+msgstr "개 상품"
+
+msgid "No orders yet"
+msgstr "아직 주문 내역이 없습니다"
+
+msgid "Your order history will appear here after your first purchase."
+msgstr "첫 구매 후 이곳에서 주문 내역을 확인하실 수 있습니다."
+
+msgid "Log in"
+msgstr "로그인"
+
+msgid "Made in a thoughtful, limited batch."
+msgstr "정성을 담아 한정 수량으로 제작했습니다."
+
+msgid "Made slowly. Chosen with care. Thank you."
+msgstr "천천히 만들고, 신중하게 골랐습니다. 감사합니다."
+
+msgid "New to CRAFTS BAPPY?"
+msgstr "CRAFTS BAPPY가 처음이신가요?"
+
+msgid "New work from independent makers, released in small batches at 7:00 PM. See what’s coming, and revisit the collections we’ve loved."
+msgstr "독립 작가의 새로운 작품을 매주 저녁 7시에 소량 공개합니다. 예정된 드롭과 지난 컬렉션을 만나보세요."
+
+msgid "Only %(stock)s left in stock!"
+msgstr "%(stock)s개만 남았습니다!"
+
+msgid "Order confirmed"
+msgstr "주문이 확정되었습니다"
+
+msgid "Order number"
+msgstr "주문 번호"
+
+msgid "Order summary"
+msgstr "주문 요약"
+
+msgid "Our story is just beginning. Past collections will appear here."
+msgstr "이제 막 시작된 이야기입니다. 지난 컬렉션이 이곳에 소개됩니다."
+
+msgid "Past drops"
+msgstr "지난 드롭"
+
+msgid "Piece"
+msgstr "상품"
+
+msgid "Pieces"
+msgstr "개 상품"
+
+msgid "Placed for"
+msgstr "주문자"
+
+msgid "Postal code"
+msgstr "우편번호"
+
+msgid "Price"
+msgstr "가격"
+
+msgid "Proceed to checkout"
+msgstr "결제 진행"
+
+msgid "Quantity"
+msgstr "수량"
+
+msgid "Remove %(name)s from your bag"
+msgstr "장바구니에서 %(name)s 삭제"
+
+msgid "Return to home"
+msgstr "홈으로 돌아가기"
+
+msgid "Saturday, always at 7:00 PM"
+msgstr "매주 토요일 오후 7시"
+
+msgid "Save the date"
+msgstr "날짜를 확인해 주세요"
+
+msgid "Shipping address"
+msgstr "배송 주소"
+
+msgid "Sold out"
+msgstr "품절"
+
+msgid "Subtotal"
+msgstr "소계"
+
+msgid "Thank you for supporting handmade artisans! Your order is confirmed, and a thoughtful piece is on its way to becoming part of your everyday."
+msgstr "수공예 작가들을 응원해 주셔서 감사합니다! 주문이 완료되었으며, 정성스러운 작품이 일상에 함께할 준비를 하고 있습니다."
+
+msgid "The details"
+msgstr "작품 설명"
+
+msgid "The drop calendar"
+msgstr "드롭 일정"
+
+msgid "There’s nothing here just yet. Find a handmade piece that feels like it belongs with you."
+msgstr "아직 장바구니가 비어 있어요. 당신과 잘 어울릴 수공예 작품을 찾아보세요."
+
+msgid "There’s nothing to check out yet"
+msgstr "결제할 상품이 없습니다"
+
+msgid "This small batch has found its homes."
+msgstr "이번 소량 제작 작품은 모두 새 주인을 만났습니다."
+
+msgid "Thoughtfully made by"
+msgstr "정성을 담아 만든 작가"
+
+msgid "Upcoming"
+msgstr "예정"
+
+msgid "View products"
+msgstr "상품 보기"
+
+msgid "Welcome back"
+msgstr "다시 오신 것을 환영합니다"
+
+msgid "We’ll use this for your order confirmation."
+msgstr "주문 확인을 위해 사용됩니다."
+
+msgid "Where should we send your order?"
+msgstr "주문 상품을 어디로 보내드릴까요?"
+
+msgid "Your bag"
+msgstr "장바구니"
+
+msgid "Your bag is empty. Find a piece from the latest makers’ collection."
+msgstr "장바구니가 비어 있습니다. 작가들의 최신 작품을 둘러보세요."
+
+msgid "Your bag is taking a breather"
+msgstr "장바구니가 잠시 쉬고 있어요"
+
+msgid "Your name"
+msgstr "이름"
+
+msgid "Your next favourite piece might be waiting."
+msgstr "다음으로 아끼게 될 작품이 기다리고 있을지도 몰라요."
+
+msgid "Your order"
+msgstr "주문"
+
+msgid "Your order is confirmed only after stock is checked at checkout."
+msgstr "재고 확인이 완료되어야 주문이 확정됩니다."
+
+msgid "Your pieces are made in small batches. Stock is confirmed when you complete your order."
+msgstr "작품은 소량 제작됩니다. 주문 완료 시 재고가 확정됩니다."
+
+msgid "Your selection"
+msgstr "선택한 상품"
+
+msgid "%(stock)s available"
+msgstr "%(stock)s개 재고 있음"
+
+msgid "%(count)s thoughtfully made pieces"
+msgstr "정성껏 만든 작품 %(count)s개"
+
+msgid "%(count)s pieces from the makers"
+msgstr "작가들의 작품 %(count)s개"
+
+msgid "14 makers · small batches · objects to live with"
+msgstr "14명의 작가 · 소량 제작 · 오래 곁에 둘 작품"
+
+msgid "A little more meaning in the everyday."
+msgstr "매일의 순간에 작은 의미를 더합니다."
+
+msgid "A new collection is taking shape"
+msgstr "새로운 컬렉션을 준비하고 있어요"
+
+msgid "A new collection of considered objects, released for one Saturday at a time."
+msgstr "엄선한 작품을 매주 토요일 새로운 컬렉션으로 소개합니다."
+
+msgid "A slower kind of making"
+msgstr "천천히 만드는 방식"
+
+msgid "An artisan shaping a handmade ceramic vessel"
+msgstr "손으로 도자기를 빚는 작가"
+
+msgid "CRAFTS BAPPY weekly drop"
+msgstr "CRAFTS BAPPY 주간 드롭"
+
+msgid "Ceramics and textiles shaped by the hands of 14 independent makers. A new small-batch collection, every Saturday."
+msgstr "14명의 독립 작가가 손으로 빚고 짠 도자기와 직물. 매주 토요일 새로운 소량 제작 컬렉션을 만나보세요."
+
+msgid "Checkout"
+msgstr "결제"
+
+msgid "Come back for the next Saturday drop."
+msgstr "다음 토요일 드롭에서 다시 만나요."
+
+msgid "Considered pieces for the little rituals that make a home your own."
+msgstr "집을 나만의 공간으로 만드는 작은 일상을 위한 작품."
+
+msgid "Countdown to the next Saturday drop"
+msgstr "다음 토요일 드롭까지 남은 시간"
+
+msgid "Days"
+msgstr "일"
+
+msgid "Discover the collection"
+msgstr "컬렉션 둘러보기"
+
+msgid "Every Saturday · 7:00 PM"
+msgstr "매주 토요일 · 오후 7시"
+
+msgid "Explore all drops"
+msgstr "모든 드롭 보기"
+
+msgid "Hours"
+msgstr "시간"
+
+msgid "Independent craft, discovered in Busan"
+msgstr "부산에서 만나는 독립 공예"
+
+msgid "Kept forever."
+msgstr "오래도록 곁에."
+
+msgid "Korea Standard Time"
+msgstr "한국 표준시"
+
+msgid "Made by hand, held for years."
+msgstr "손으로 만들고, 오래도록."
+
+msgid "Made by independent hands"
+msgstr "독립 작가의 손에서"
+
+msgid "Made slowly."
+msgstr "천천히 만들고."
+
+msgid "Meet the next drop"
+msgstr "다음 드롭 만나보기"
+
+msgid "Minutes"
+msgstr "분"
+
+msgid "Objects to keep close, for longer"
+msgstr "오래도록 곁에 둘 작품"
+
+msgid "Objects, made by hand"
+msgstr "작가의 손에서 온 작품"
+
+msgid "Only %(stock)s left"
+msgstr "%(stock)s개만 남았습니다"
+
+msgid "Password"
+msgstr "비밀번호"
+
+msgid "Scroll to discover"
+msgstr "아래로 둘러보기"
+
+msgid "Seconds"
+msgstr "초"
+
+msgid "The Saturday drops"
+msgstr "토요일의 드롭"
+
+msgid "The next release"
+msgstr "다음 공개"
+
+msgid "The CRAFTS BAPPY weekly collection"
+msgstr "CRAFTS BAPPY 주간 컬렉션"
+
+msgid "Thoughtfully made in small batches"
+msgstr "작은 배치로 정성스럽게"
+
+msgid "Username"
+msgstr "사용자 이름"
+
+msgid "View the drop calendar"
+msgstr "드롭 일정 보기"
+
+msgid "We bring together 14 independent makers working with clay and cloth. Every Saturday, their latest small-batch work finds its way here, ready for a new home."
+msgstr "흙과 천을 다루는 14명의 독립 작가를 한자리에 모았습니다. 매주 토요일, 작가의 작업실에서 갓 나온 소량 제작 작품을 소개합니다."
+
+msgid "The next Saturday drop"
+msgstr "다음 토요일 드롭"
+
+msgid "Total"
+msgstr "합계"
+
+msgid "Your purchase supports the independent artisans behind every piece."
+msgstr "구매하실 때마다 독립 작가와 그들의 작업을 응원합니다."
+
+msgid "e.g. Alex Morgan"
+msgstr "예: 홍길동"
+
+msgid "Street address and apartment"
+msgstr "도로명 주소와 상세 주소"
+
+msgid "Your city"
+msgstr "도시를 입력해 주세요"
+
+msgid "handmade by"
+msgstr "작가"
+
+msgid "collection"
+msgstr "컬렉션"

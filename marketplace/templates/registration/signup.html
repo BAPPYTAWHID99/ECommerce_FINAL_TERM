@@ -1,0 +1,47 @@
+{% extends "marketplace/base.html" %}
+
+{% load i18n %}
+
+{% block title %}{% trans "Create an account" %} — CRAFTS BAPPY{% endblock %}
+
+{% block content %}
+  <section class="relative isolate flex min-h-[calc(100vh-12rem)] items-center justify-center overflow-hidden px-5 pb-16 pt-36 sm:px-8 sm:pt-40">
+    <div class="absolute left-1/2 top-1/3 -z-10 h-72 w-72 -translate-x-1/2 rounded-full bg-clay-light/70 blur-3xl dark:bg-clay/10 sm:h-96 sm:w-96"></div>
+    <div class="w-full max-w-lg" data-aos="fade-up">
+      <div class="mb-7 text-center">
+        <span class="mx-auto grid h-14 w-14 place-items-center rounded-full bg-clay text-white">
+          <svg viewBox="0 0 24 24" fill="none" class="h-6 w-6" aria-hidden="true"><path d="M12 5v14m-7-7h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </span>
+        <p class="mt-5 text-[10px] font-semibold uppercase tracking-[.22em] text-clay dark:text-orange-200 sm:text-xs">{% trans "A place for good things" %}</p>
+        <h1 class="mt-2 font-display text-4xl font-medium tracking-tight text-stone-900 dark:text-stone-100 sm:text-5xl">{% trans "Join CRAFTS BAPPY" %}<span class="text-clay dark:text-orange-200">.</span></h1>
+        <p class="mt-3 text-sm text-stone-500 dark:text-stone-400">{% trans "Create an account and keep the makers’ market close." %}</p>
+      </div>
+
+      <form method="post" class="rounded-[1.8rem] border border-stone-200 bg-white p-6 shadow-soft dark:border-stone-700 dark:bg-stone-800 sm:p-8">
+        {% csrf_token %}
+        {% if form.non_field_errors %}
+          <div class="mb-5 rounded-2xl bg-clay-light p-4 text-sm text-clay dark:bg-clay/20 dark:text-orange-200" role="alert">
+            {% for error in form.non_field_errors %}<p>{{ error }}</p>{% endfor %}
+          </div>
+        {% endif %}
+
+        <div class="space-y-5">
+          {% for field in form %}
+            <div>
+              <label for="{{ field.id_for_label }}" class="mb-2 block text-xs font-semibold text-stone-800 dark:text-stone-200">{{ field.label }}</label>
+              <input id="{{ field.id_for_label }}" name="{{ field.html_name }}" type="{{ field.field.widget.input_type }}" autocomplete="{% if field.name == 'username' %}username{% else %}new-password{% endif %}" required class="min-h-12 w-full rounded-2xl border border-stone-300 bg-stone-50 px-4 text-sm text-stone-900 outline-none transition placeholder:text-stone-400 focus:border-sage focus:ring-2 focus:ring-sage/15 dark:border-stone-600 dark:bg-stone-800 dark:text-white dark:placeholder:text-stone-400">
+              {% if field.help_text %}<div class="mt-2 space-y-1 text-xs leading-5 text-stone-500 dark:text-stone-400">{{ field.help_text|safe }}</div>{% endif %}
+              {% if field.errors %}<p class="mt-2 text-xs text-clay dark:text-orange-200">{{ field.errors|join:", " }}</p>{% endif %}
+            </div>
+          {% endfor %}
+        </div>
+
+        <button type="submit" class="mt-7 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-clay px-6 text-sm font-semibold text-white transition hover:bg-ink focus:outline-none focus:ring-2 focus:ring-clay focus:ring-offset-2 dark:focus:ring-offset-stone-800 dark:hover:bg-stone-700">
+          {% trans "Create account" %}
+          <svg viewBox="0 0 20 20" fill="none" class="h-4 w-4" aria-hidden="true"><path d="M4 10h12m0 0-5-5m5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <p class="mt-6 text-center text-sm text-stone-500 dark:text-stone-400">{% trans "Already have an account?" %} <a href="{% url 'login' %}" class="font-semibold text-sage underline decoration-sage/30 underline-offset-4 transition hover:text-ink dark:hover:text-stone-100 dark:text-[#c7d0b4]">{% trans "Log in" %}</a></p>
+      </form>
+    </div>
+  </section>
+{% endblock %}

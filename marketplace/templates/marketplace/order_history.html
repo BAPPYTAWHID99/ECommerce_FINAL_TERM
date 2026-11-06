@@ -1,0 +1,77 @@
+{% extends "marketplace/base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "My Orders" %} — CRAFTS BAPPY{% endblock %}
+
+{% block content %}
+  <section class="px-5 pb-20 pt-32 sm:px-8 sm:pb-28 sm:pt-40">
+    <div class="mx-auto max-w-5xl">
+      <header class="mb-9" data-aos="fade-up">
+        <p class="text-[10px] font-semibold uppercase tracking-[.22em] text-sage dark:text-[#c7d0b4] sm:text-xs">{% trans "Your purchases" %}</p>
+        <h1 class="mt-2 font-display text-5xl font-medium tracking-tight text-stone-900 dark:text-stone-100 sm:text-6xl">{% trans "My Orders" %}<span class="text-clay dark:text-orange-200">.</span></h1>
+        <p class="mt-3 text-sm text-stone-500 dark:text-stone-400">{% trans "A record of the handmade pieces you’ve chosen." %}</p>
+      </header>
+
+      {% if orders %}
+        <div class="space-y-6">
+          {% for order in orders %}
+            <article class="overflow-hidden rounded-[1.8rem] border border-stone-200 bg-white shadow-soft dark:border-stone-700 dark:bg-stone-800" data-aos="fade-up">
+              <div class="flex flex-col gap-5 border-b border-stone-200 px-5 py-5 dark:border-stone-700 sm:flex-row sm:items-start sm:justify-between sm:px-7">
+                <div>
+                  <p class="text-[10px] font-semibold uppercase tracking-[.18em] text-stone-500 dark:text-stone-400">{% trans "Order number" %}</p>
+                  <h2 class="mt-1 font-display text-2xl font-semibold text-stone-900 dark:text-stone-100">#{{ order.order_number }}</h2>
+                  <p class="mt-1 text-xs text-stone-500 dark:text-stone-400">{{ order.created_at|date:"F j, Y · P" }}</p>
+                </div>
+                <div class="sm:text-right">
+                  <p class="text-[10px] font-semibold uppercase tracking-[.18em] text-stone-500 dark:text-stone-400">{% trans "Order total" %}</p>
+                  <p class="mt-1 font-display text-2xl font-semibold text-stone-900 dark:text-stone-100">₩{{ order.total_amount|floatformat:"0" }}</p>
+                </div>
+              </div>
+
+              <div class="grid gap-6 px-5 py-5 sm:grid-cols-[1fr_auto] sm:px-7">
+                <div>
+                  <h3 class="text-xs font-semibold uppercase tracking-[.15em] text-stone-700 dark:text-stone-300">{% trans "Shipping address" %}</h3>
+                  <address class="mt-2 not-italic text-sm leading-6 text-stone-600 dark:text-stone-300">
+                    {{ order.shipping_address }}<br>
+                    {{ order.city }}{% if order.postal_code %}, {{ order.postal_code }}{% endif %}<br>
+                    {{ order.country }}
+                  </address>
+                </div>
+                <div class="sm:min-w-48">
+                  <h3 class="text-xs font-semibold uppercase tracking-[.15em] text-stone-700 dark:text-stone-300">{% trans "Items in this order" %}</h3>
+                  <p class="mt-2 text-sm text-stone-500 dark:text-stone-400">{{ order.items.count }} {% trans "item(s)" %}</p>
+                </div>
+              </div>
+
+              <div class="divide-y divide-stone-200 border-t border-stone-200 dark:divide-stone-700 dark:border-stone-700">
+                {% for item in order.items.all %}
+                  <div class="flex items-center gap-4 px-5 py-4 sm:px-7">
+                    <div class="h-16 w-16 shrink-0 overflow-hidden rounded-xl bg-stone-100 dark:bg-stone-700">
+                      {% if item.product.image_url %}
+                        <img src="{{ item.product.image_url }}" alt="{{ item.product.name }}" loading="lazy" class="h-full w-full object-cover">
+                      {% endif %}
+                    </div>
+                    <div class="min-w-0 flex-1">
+                      <p class="truncate text-sm font-medium text-stone-900 dark:text-stone-100">{{ item.product.name }}</p>
+                      <p class="mt-1 text-xs text-stone-500 dark:text-stone-400">{% trans "Quantity" %}: {{ item.quantity }}</p>
+                    </div>
+                    <p class="shrink-0 text-sm font-medium text-stone-800 dark:text-stone-200">₩{{ item.price_at_purchase|floatformat:"0" }}</p>
+                  </div>
+                {% endfor %}
+              </div>
+            </article>
+          {% endfor %}
+        </div>
+      {% else %}
+        <div class="rounded-[1.8rem] border border-stone-200 bg-white px-6 py-14 text-center dark:border-stone-700 dark:bg-stone-800 sm:py-18" data-aos="fade-up">
+          <span class="mx-auto grid h-14 w-14 place-items-center rounded-full bg-sage-light text-sage dark:bg-stone-700 dark:text-[#c7d0b4]">
+            <svg viewBox="0 0 24 24" fill="none" class="h-6 w-6" aria-hidden="true"><path d="M5 8h14l-1 12H6L5 8Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M9 9V6a3 3 0 0 1 6 0v3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </span>
+          <h2 class="mt-5 font-display text-3xl text-stone-900 dark:text-stone-100">{% trans "No orders yet" %}</h2>
+          <p class="mx-auto mt-2 max-w-md text-sm leading-6 text-stone-500 dark:text-stone-400">{% trans "Your order history will appear here after your first purchase." %}</p>
+          <a href="{% url 'home' %}" class="mt-7 inline-flex min-h-11 items-center justify-center rounded-full bg-ink px-7 text-sm font-semibold text-white transition hover:bg-sage dark:bg-stone-100 dark:text-stone-900 dark:hover:bg-stone-300">{% trans "Explore the collection" %}</a>
+        </div>
+      {% endif %}
+    </div>
+  </section>
+{% endblock %}

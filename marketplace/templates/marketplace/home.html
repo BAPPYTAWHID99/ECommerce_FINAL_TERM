@@ -1,0 +1,212 @@
+{% extends "marketplace/base.html" %}
+{% load i18n %}
+{% get_current_language as CURRENT_LANGUAGE %}
+
+{% block title %}{% trans "Handmade, found here" %} — CRAFTS BAPPY{% endblock %}
+
+{% block content %}
+  <section class="relative isolate min-h-[760px] overflow-hidden bg-[#2c2a25] text-white lg:min-h-[850px]">
+    <div class="absolute inset-0 -z-20 bg-[url('https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?auto=format&fit=crop&w=2200&q=88')] bg-cover bg-[center_45%]"></div>
+    <div class="absolute inset-0 -z-10 bg-gradient-to-r from-[#171815]/85 via-[#201f1b]/65 to-[#201f1b]/20"></div>
+    <div class="absolute inset-0 -z-10 bg-gradient-to-t from-[#171815]/45 via-transparent to-[#171815]/10"></div>
+
+    <div class="mx-auto grid min-h-[760px] max-w-7xl items-center gap-10 px-5 pb-12 pt-36 sm:px-8 sm:pb-16 sm:pt-40 lg:min-h-[850px] lg:grid-cols-[1.05fr_.75fr] lg:gap-20">
+      <div class="max-w-3xl" data-aos="fade-up">
+        <p class="mb-5 text-[10px] font-medium uppercase tracking-[.32em] text-white/70 sm:text-xs">
+          {% if CURRENT_LANGUAGE == "ko" %}{% trans "서울에서 만나는 독립 공예" %}{% else %}{% trans "Independent craft, discovered in Busan" %}{% endif %}
+        </p>
+        <h1 class="max-w-3xl font-display text-5xl font-medium leading-[1.02] tracking-[-.035em] sm:text-7xl lg:text-[6.5rem]">
+          {% if CURRENT_LANGUAGE == "ko" %}
+            {% trans "손끝에서 태어나," %}<br><span class="font-sans text-4xl font-light tracking-[-.06em] text-[#e2c7b5] sm:text-6xl lg:text-7xl">{% trans "일상에 머무는 것." %}</span>
+          {% else %}
+            {% trans "Made slowly." %}<br><span class="italic text-[#e2c7b5]">{% trans "Kept forever." %}</span>
+          {% endif %}
+        </h1>
+        <p class="mt-6 max-w-xl text-sm font-light leading-7 text-white/75 sm:mt-8 sm:text-base sm:leading-8">
+          {% if CURRENT_LANGUAGE == "ko" %}
+            {% trans "한국의 독립 작가 14명이 흙과 실로 빚어낸 작은 작품들. 매주 토요일, 새로운 이야기를 소개합니다." %}
+          {% else %}
+            {% trans "Ceramics and textiles shaped by the hands of 14 independent makers. A new small-batch collection, every Saturday." %}
+          {% endif %}
+        </p>
+        <div class="mt-8 flex flex-wrap items-center gap-4 sm:mt-10">
+          <a href="#collection" class="inline-flex min-h-12 items-center gap-4 bg-[#F9F8F6] px-6 text-xs font-medium text-[#1A1A1A] transition hover:bg-white dark:bg-stone-100 dark:text-stone-900 dark:hover:bg-stone-300">
+            {% if CURRENT_LANGUAGE == "ko" %}{% trans "컬렉션 둘러보기" %}{% else %}{% trans "Discover the collection" %}{% endif %}
+            <svg viewBox="0 0 20 20" fill="none" class="h-4 w-4" aria-hidden="true"><path d="M4 10h12m0 0-5-5m5 5-5 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a href="{% url 'drop_calendar' %}" class="inline-flex min-h-12 items-center px-2 text-xs font-light text-white/80 transition hover:text-white">
+            {% if CURRENT_LANGUAGE == "ko" %}{% trans "토요일의 드롭" %}{% else %}{% trans "The Saturday drops" %}{% endif %}
+          </a>
+        </div>
+        <div class="mt-12 hidden items-center gap-4 text-[10px] tracking-wide text-white/65 sm:flex">
+          <span class="h-px w-10 bg-white/50"></span>
+          {% if CURRENT_LANGUAGE == "ko" %}{% trans "14명의 작가 · 작은 배치 · 오래 쓰는 물건" %}{% else %}{% trans "14 makers · small batches · objects to live with" %}{% endif %}
+        </div>
+      </div>
+
+      <div class="w-full max-w-[420px] justify-self-end" data-aos="fade-up" data-aos-delay="150">
+        <div class="border border-white/25 bg-[#171815]/45 p-5 backdrop-blur-xl sm:p-7 dark:border-stone-700">
+          <div class="flex items-start justify-between gap-5">
+            <div>
+              <p class="text-[9px] uppercase tracking-[.26em] text-white/60">{% if CURRENT_LANGUAGE == "ko" %}{% trans "다음 공개" %}{% else %}{% trans "The next release" %}{% endif %}</p>
+              <h2 class="mt-3 font-sans text-lg font-light tracking-tight sm:text-xl">
+                {% if active_drop %}{{ active_drop.title }}{% elif CURRENT_LANGUAGE == "ko" %}{% trans "토요일 공예 마켓" %}{% else %}{% trans "CRAFTS BAPPY weekly drop" %}{% endif %}
+              </h2>
+            </div>
+            <span class="grid h-10 w-10 shrink-0 place-items-center border border-white/25 text-[#e2c7b5] dark:border-stone-700">
+              <svg viewBox="0 0 24 24" fill="none" class="h-5 w-5" aria-hidden="true"><circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.2"/><path d="M12 7v5l3 2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+            </span>
+          </div>
+          <div class="my-6 h-px bg-white/20"></div>
+          <p class="text-xs font-light leading-6 text-white/70">{% if CURRENT_LANGUAGE == "ko" %}{% trans "매주 토요일 저녁 7시, 작가들의 새로운 작품을 만나보세요." %}{% else %}{% trans "A new collection of considered objects, released for one Saturday at a time." %}{% endif %}</p>
+          <div class="mt-6 grid grid-cols-4 gap-2" role="timer" aria-label="{% if CURRENT_LANGUAGE == 'ko' %}{% trans '다음 토요일 드롭까지 남은 시간' %}{% else %}{% trans 'Countdown to the next Saturday drop' %}{% endif %}">
+            <div class="border border-white/15 bg-white/[.04] py-3 text-center dark:border-stone-700"><span id="countdown-days" class="block font-display text-3xl tabular-nums">00</span><span class="mt-1 block text-[8px] uppercase tracking-[.16em] text-white/55">{% if CURRENT_LANGUAGE == "ko" %}{% trans "일" %}{% else %}{% trans "Days" %}{% endif %}</span></div>
+            <div class="border border-white/15 bg-white/[.04] py-3 text-center dark:border-stone-700"><span id="countdown-hours" class="block font-display text-3xl tabular-nums">00</span><span class="mt-1 block text-[8px] uppercase tracking-[.16em] text-white/55">{% if CURRENT_LANGUAGE == "ko" %}{% trans "시간" %}{% else %}{% trans "Hours" %}{% endif %}</span></div>
+            <div class="border border-white/15 bg-white/[.04] py-3 text-center dark:border-stone-700"><span id="countdown-minutes" class="block font-display text-3xl tabular-nums">00</span><span class="mt-1 block text-[8px] uppercase tracking-[.16em] text-white/55">{% if CURRENT_LANGUAGE == "ko" %}{% trans "분" %}{% else %}{% trans "Minutes" %}{% endif %}</span></div>
+            <div class="border border-white/15 bg-white/[.04] py-3 text-center dark:border-stone-700"><span id="countdown-seconds" class="block font-display text-3xl tabular-nums">00</span><span class="mt-1 block text-[8px] uppercase tracking-[.16em] text-white/55">{% if CURRENT_LANGUAGE == "ko" %}{% trans "초" %}{% else %}{% trans "Seconds" %}{% endif %}</span></div>
+          </div>
+          <p class="mt-5 flex items-center justify-between text-[9px] text-white/60">
+            <span>{% if CURRENT_LANGUAGE == "ko" %}{% trans "매주 토요일 · 오후 7시" %}{% else %}{% trans "Every Saturday · 7:00 PM" %}{% endif %}</span>
+            <span>{% if CURRENT_LANGUAGE == "ko" %}{% trans "한국 표준시" %}{% else %}{% trans "Korea Standard Time" %}{% endif %}</span>
+          </p>
+        </div>
+      </div>
+    </div>
+    <a href="#collection" class="absolute bottom-7 left-1/2 hidden -translate-x-1/2 items-center gap-4 text-[9px] uppercase tracking-[.24em] text-white/55 transition hover:text-white sm:flex">
+      {% if CURRENT_LANGUAGE == "ko" %}{% trans "아래로 둘러보기" %}{% else %}{% trans "Scroll to discover" %}{% endif %}<span class="h-8 w-px bg-white/40"></span>
+    </a>
+  </section>
+
+  <section class="border-b border-stone-200 bg-white transition-colors dark:border-stone-800 dark:bg-[#171717]">
+    <div class="mx-auto grid max-w-7xl grid-cols-1 divide-y divide-stone-200 px-5 py-4 dark:divide-stone-800 sm:grid-cols-3 sm:divide-x sm:divide-y-0 sm:px-8">
+      <p class="py-3 text-center text-[10px] tracking-wide text-stone-600 dark:text-stone-300 sm:py-2">{% if CURRENT_LANGUAGE == "ko" %}{% trans "독립 작가의 손에서" %}{% else %}{% trans "Made by independent hands" %}{% endif %}</p>
+      <p class="py-3 text-center text-[10px] tracking-wide text-stone-600 dark:text-stone-300 sm:py-2">{% if CURRENT_LANGUAGE == "ko" %}{% trans "작은 배치로 정성스럽게" %}{% else %}{% trans "Thoughtfully made in small batches" %}{% endif %}</p>
+      <p class="py-3 text-center text-[10px] tracking-wide text-stone-600 dark:text-stone-300 sm:py-2">{% if CURRENT_LANGUAGE == "ko" %}{% trans "매일 곁에 두고 오래도록" %}{% else %}{% trans "Objects to keep close, for longer" %}{% endif %}</p>
+    </div>
+  </section>
+
+  <section id="collection" class="scroll-mt-24 bg-paper px-5 py-20 transition-colors dark:bg-[#121212] sm:px-8 sm:py-28 lg:py-32">
+    <div class="mx-auto max-w-7xl">
+      <div class="mb-10 flex flex-col gap-5 sm:mb-14 sm:flex-row sm:items-end sm:justify-between" data-aos="fade-up">
+        <div>
+          <p class="text-[9px] uppercase tracking-[.28em] text-olive dark:text-[#aeb99b]">{% if CURRENT_LANGUAGE == "ko" %}{% trans "이번 주의 셀렉션" %}{% else %}{% trans "The CRAFTS BAPPY weekly collection" %}{% endif %}</p>
+          <h2 class="mt-3 font-display text-4xl font-medium tracking-tight sm:text-5xl">{% if CURRENT_LANGUAGE == "ko" %}{% trans "작가의 손에서 온 작품" %}{% else %}{% trans "Objects, made by hand" %}{% endif %}</h2>
+          <p class="mt-3 max-w-xl text-xs leading-6 text-stone-500 dark:text-stone-400 sm:text-sm">{% if CURRENT_LANGUAGE == "ko" %}{% trans "매일의 순간을 조금 더 특별하게 만드는 작은 공예품." %}{% else %}{% trans "Considered pieces for the little rituals that make a home your own." %}{% endif %}</p>
+        </div>
+        <a href="{% url 'drop_calendar' %}" class="inline-flex w-fit items-center gap-3 border-b border-stone-400 pb-2 text-[10px] tracking-wide text-stone-700 transition hover:border-olive hover:text-olive dark:border-stone-600 dark:text-stone-300 dark:hover:text-white">
+          {% if CURRENT_LANGUAGE == "ko" %}{% trans "모든 드롭 보기" %}{% else %}{% trans "Explore all drops" %}{% endif %}
+          <svg viewBox="0 0 20 20" fill="none" class="h-4 w-4" aria-hidden="true"><path d="M4 10h12m0 0-5-5m5 5-5 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+
+      {% if products %}
+        <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 lg:gap-x-8 lg:gap-y-14">
+          {% for product in products %}
+            <article class="group" data-aos="fade-up" data-aos-delay="{{ forloop.counter0 }}00">
+              <a href="{% url 'product_detail' product.id %}" class="block">
+                <div class="relative aspect-[4/5] overflow-hidden bg-stone-100 dark:bg-stone-900">
+                  <img src="{{ product.image_url }}" alt="{{ product.name }}" loading="lazy" class="h-full w-full object-cover transition duration-700 ease-out group-hover:scale-105">
+                  {% if product.stock_quantity == 0 %}
+                    <span class="absolute left-4 top-4 bg-[#F9F8F6]/95 px-3 py-1.5 text-[9px] tracking-wide text-stone-600 dark:bg-stone-900/95 dark:text-stone-300">{% if CURRENT_LANGUAGE == "ko" %}{% trans "품절" %}{% else %}{% trans "Sold out" %}{% endif %}</span>
+                  {% elif product.stock_quantity <= 3 %}
+                    <span class="absolute left-4 top-4 bg-[#F9F8F6]/95 px-3 py-1.5 text-[9px] tracking-wide text-terracotta dark:bg-stone-900/95 dark:text-orange-200">{% if CURRENT_LANGUAGE == "ko" %}{% blocktrans with stock=product.stock_quantity %}소량 남음 · {{ stock }}개{% endblocktrans %}{% else %}{% blocktrans with stock=product.stock_quantity %}Only {{ stock }} left{% endblocktrans %}{% endif %}</span>
+                  {% endif %}
+                  <span class="absolute bottom-4 right-4 grid h-10 w-10 translate-y-2 place-items-center rounded-full bg-paper text-ink opacity-0 shadow transition duration-300 group-hover:translate-y-0 group-hover:opacity-100 dark:bg-stone-800 dark:text-stone-100" aria-hidden="true">
+                    <svg viewBox="0 0 20 20" fill="none" class="h-4 w-4"><path d="M4 10h12m0 0-5-5m5 5-5 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </span>
+                </div>
+                <div class="flex items-start justify-between gap-3 pt-4">
+                  <div>
+                    <h3 class="font-sans text-sm font-medium tracking-tight text-stone-900 transition group-hover:text-olive dark:text-stone-100 dark:group-hover:text-[#c7d0b4] sm:text-base">{{ product.name }}</h3>
+                    <p class="mt-1.5 text-[10px] text-stone-500 dark:text-stone-400">{{ product.artisan.name }} · {{ product.artisan.specialty }}</p>
+                  </div>
+                  <p class="shrink-0 pt-0.5 text-xs font-medium text-stone-800 dark:text-stone-200">₩{{ product.price|floatformat:"0" }}</p>
+                </div>
+              </a>
+            </article>
+          {% endfor %}
+        </div>
+      {% else %}
+        <div class="py-16 text-center" data-aos="fade-up">
+          <p class="font-display text-3xl">{% if CURRENT_LANGUAGE == "ko" %}{% trans "새로운 컬렉션을 준비하고 있어요" %}{% else %}{% trans "A new collection is taking shape" %}{% endif %}</p>
+          <p class="mt-3 text-xs text-stone-500 dark:text-stone-400">{% if CURRENT_LANGUAGE == "ko" %}{% trans "다음 토요일 드롭에서 다시 만나요." %}{% else %}{% trans "Come back for the next Saturday drop." %}{% endif %}</p>
+          <a href="{% url 'drop_calendar' %}" class="mt-6 inline-flex border-b border-olive pb-2 text-xs text-olive dark:text-[#c7d0b4] dark:border-stone-700">{% if CURRENT_LANGUAGE == "ko" %}{% trans "드롭 일정 보기" %}{% else %}{% trans "View the drop calendar" %}{% endif %}</a>
+        </div>
+      {% endif %}
+    </div>
+  </section>
+
+  <section class="bg-[#EFEEEA] transition-colors dark:bg-[#1A1A1A]">
+    <div class="mx-auto grid max-w-7xl items-center gap-10 px-5 py-16 sm:px-8 sm:py-24 lg:grid-cols-2 lg:gap-20">
+      <div class="relative" data-aos="fade-up">
+        <img src="https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?auto=format&fit=crop&w=1200&q=85" alt="{% if CURRENT_LANGUAGE == 'ko' %}{% trans '도자기를 빚는 작가의 손' %}{% else %}{% trans 'An artisan shaping a handmade ceramic vessel' %}{% endif %}" loading="lazy" class="aspect-[4/3] w-full object-cover">
+        <span class="absolute -bottom-4 right-4 bg-paper px-4 py-3 font-display text-lg italic text-olive shadow dark:bg-stone-800 dark:text-[#c7d0b4] sm:right-8">{% if CURRENT_LANGUAGE == "ko" %}{% trans "손으로 만들고, 오래도록." %}{% else %}{% trans "Made by hand, held for years." %}{% endif %}</span>
+      </div>
+      <div data-aos="fade-up" data-aos-delay="100">
+        <p class="text-[9px] uppercase tracking-[.28em] text-olive dark:text-[#aeb99b]">{% if CURRENT_LANGUAGE == "ko" %}{% trans "좋은 물건은 손끝에서" %}{% else %}{% trans "A slower kind of making" %}{% endif %}</p>
+        <h2 class="mt-4 max-w-xl font-display text-4xl font-medium leading-tight tracking-tight sm:text-5xl">{% if CURRENT_LANGUAGE == "ko" %}{% trans "매일의 순간에 작은 의미를 더합니다." %}{% else %}{% trans "A little more meaning in the everyday." %}{% endif %}</h2>
+        <p class="mt-5 max-w-lg text-xs leading-7 text-stone-600 dark:text-stone-400 sm:text-sm sm:leading-8">
+          {% if CURRENT_LANGUAGE == "ko" %}
+            {% trans "흙과 천을 다루는 14명의 독립 작가를 한자리에 모았습니다. 매주 토요일, 작가의 작업실에서 갓 나온 소량 제작 작품을 소개합니다." %}
+          {% else %}
+            {% trans "We bring together 14 independent makers working with clay and cloth. Every Saturday, their latest small-batch work finds its way here, ready for a new home." %}
+          {% endif %}
+        </p>
+        <a href="{% url 'drop_calendar' %}" class="mt-7 inline-flex items-center gap-3 bg-olive px-5 py-3.5 text-[10px] tracking-wide text-white transition hover:bg-ink dark:hover:bg-stone-700">
+          {% if CURRENT_LANGUAGE == "ko" %}{% trans "다음 드롭 만나보기" %}{% else %}{% trans "Meet the next drop" %}{% endif %}
+          <svg viewBox="0 0 20 20" fill="none" class="h-4 w-4" aria-hidden="true"><path d="M4 10h12m0 0-5-5m5 5-5 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+{% endblock %}
+
+{% block extra_js %}
+  <script>
+    (() => {
+      function nextSaturdayAtSeven(now) {
+        const seoulTime = new Intl.DateTimeFormat("en-US", {
+          timeZone: "Asia/Seoul",
+          weekday: "short",
+          year: "numeric",
+          month: "numeric",
+          day: "numeric",
+          hour: "numeric",
+          hourCycle: "h23"
+        }).formatToParts(now).reduce((parts, part) => {
+          parts[part.type] = part.value;
+          return parts;
+        }, {});
+        const weekdays = {Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6};
+        const currentWeekday = weekdays[seoulTime.weekday];
+        const daysUntilSaturday = (6 - currentWeekday + 7) % 7;
+        let target = Date.UTC(
+          Number(seoulTime.year),
+          Number(seoulTime.month) - 1,
+          Number(seoulTime.day) + daysUntilSaturday,
+          10,
+          0,
+          0
+        );
+        if (target <= now.getTime()) target += 7 * 24 * 60 * 60 * 1000;
+        return target;
+      }
+      function updateCountdown() {
+        const now = new Date();
+        const secondsRemaining = Math.max(0, Math.floor((nextSaturdayAtSeven(now) - now.getTime()) / 1000));
+        const values = {
+          days: Math.floor(secondsRemaining / 86400),
+          hours: Math.floor((secondsRemaining % 86400) / 3600),
+          minutes: Math.floor((secondsRemaining % 3600) / 60),
+          seconds: secondsRemaining % 60
+        };
+        Object.entries(values).forEach(([unit, value]) => {
+          const element = document.getElementById(`countdown-${unit}`);
+          if (element) element.textContent = String(value).padStart(2, "0");
+        });
+      }
+      updateCountdown();
+      window.setInterval(updateCountdown, 1000);
+    })();
+  </script>
+{% endblock %}
