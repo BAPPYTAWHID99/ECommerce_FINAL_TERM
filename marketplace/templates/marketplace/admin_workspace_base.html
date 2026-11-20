@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#111111">
+    <title>{% block title %}Admin workspace{% endblock %} — CRAFTS HAPPY</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="min-h-screen bg-[#111111] font-sans text-stone-100 antialiased">
+    <div class="min-h-screen lg:flex">
+      <aside class="flex w-full shrink-0 flex-col border-b border-white/10 bg-[#1A1A1A] px-5 py-6 lg:sticky lg:top-0 lg:h-screen lg:w-64 lg:border-b-0 lg:border-r">
+        <a href="{% url 'admin_dashboard' %}" class="mb-9 inline-flex items-center gap-3">
+          <span class="grid h-10 w-10 place-items-center rounded-xl bg-amber-500 text-lg font-bold text-[#171717]">C</span>
+          <span>
+            <span class="block text-sm font-bold tracking-[0.16em]">CRAFTS HAPPY</span>
+            <span class="mt-1 block text-[10px] uppercase tracking-[0.24em] text-stone-500">Admin workspace</span>
+          </span>
+        </a>
+        <p class="mb-3 text-[10px] font-semibold uppercase tracking-[0.2em] text-stone-500">Workspace</p>
+        <nav class="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-1" aria-label="Admin navigation">
+          <a href="{% url 'admin_entity_list' entity='products' %}" class="rounded-xl px-4 py-3 text-sm transition hover:bg-white/5 hover:text-white {% if active_section == 'products' %}bg-amber-500/10 font-medium text-amber-400{% else %}text-stone-300{% endif %}">Inventory</a>
+          <a href="{% url 'admin_entity_list' entity='orders' %}" class="rounded-xl px-4 py-3 text-sm transition hover:bg-white/5 hover:text-white {% if active_section == 'orders' %}bg-amber-500/10 font-medium text-amber-400{% else %}text-stone-300{% endif %}">Orders</a>
+          <a href="{% url 'admin_entity_list' entity='artisans' %}" class="rounded-xl px-4 py-3 text-sm transition hover:bg-white/5 hover:text-white {% if active_section == 'artisans' %}bg-amber-500/10 font-medium text-amber-400{% else %}text-stone-300{% endif %}">Artisans</a>
+          <a href="{% url 'admin_entity_list' entity='drops' %}" class="rounded-xl px-4 py-3 text-sm transition hover:bg-white/5 hover:text-white {% if active_section == 'drops' %}bg-amber-500/10 font-medium text-amber-400{% else %}text-stone-300{% endif %}">Drops</a>
+          <a href="{% url 'admin_entity_list' entity='order-items' %}" class="rounded-xl px-4 py-3 text-sm transition hover:bg-white/5 hover:text-white {% if active_section == 'order-items' %}bg-amber-500/10 font-medium text-amber-400{% else %}text-stone-300{% endif %}">Order items</a>
+          <a href="{% url 'admin_dashboard' %}#reporting" class="rounded-xl px-4 py-3 text-sm text-stone-300 transition hover:bg-white/5 hover:text-white">Reporting</a>
+        </nav>
+        <div class="mt-8 border-t border-white/10 pt-5 lg:mt-auto">
+          <a href="{% url 'home' %}" class="text-xs text-stone-500 transition hover:text-amber-400">← Back to storefront</a>
+          <p class="mt-3 text-[10px] text-stone-600">Signed in as {{ request.user.get_username }}</p>
+        </div>
+      </aside>
+      <main class="min-w-0 flex-1 px-5 py-7 sm:px-8 lg:px-10 lg:py-10">
+        {% if messages %}
+          <div class="mb-6 space-y-2" aria-live="polite">
+            {% for message in messages %}
+              <p class="rounded-xl border border-white/10 bg-[#242424] px-4 py-3 text-sm {% if message.tags == 'error' %}text-rose-300{% else %}text-emerald-300{% endif %}">{{ message }}</p>
+            {% endfor %}
+          </div>
+        {% endif %}
+        {% block content %}{% endblock %}
+      </main>
+    </div>
+  </body>
+</html>

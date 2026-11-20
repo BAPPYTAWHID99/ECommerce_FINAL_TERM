@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#111111">
+    <title>Admin Dashboard — CRAFTS HAPPY</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"]
+            }
+          }
+        }
+      };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+      @media print {
+        aside, .no-print { display: none !important; }
+        body, main { background: #fff !important; color: #111 !important; }
+        .print-card { border: 1px solid #ddd !important; background: #fff !important; }
+        .print-card * { color: #111 !important; }
+        .dashboard-shell { display: block !important; }
+        .dashboard-content { padding: 0 !important; }
+      }
+    </style>
+  </head>
+  <body class="min-h-screen bg-[#111111] font-sans text-stone-100 antialiased">
+    <div class="dashboard-shell min-h-screen lg:flex">
+      <aside class="flex w-full shrink-0 flex-col border-b border-white/10 bg-[#1A1A1A] px-5 py-6 lg:sticky lg:top-0 lg:h-screen lg:w-64 lg:border-b-0 lg:border-r">
+        <a href="{% url 'admin_dashboard' %}" class="mb-9 inline-flex items-center gap-3">
+          <span class="grid h-10 w-10 place-items-center rounded-xl bg-amber-500 text-lg font-bold text-[#171717]">C</span>
+          <span>
+            <span class="block text-sm font-bold tracking-[0.16em]">CRAFTS HAPPY</span>
+            <span class="mt-1 block text-[10px] uppercase tracking-[0.24em] text-stone-500">Admin workspace</span>
+          </span>
+        </a>
+
+        <p class="mb-3 text-[10px] font-semibold uppercase tracking-[0.2em] text-stone-500">Workspace</p>
+        <nav class="grid grid-cols-2 gap-2 sm:grid-cols-4 lg:grid-cols-1" aria-label="Admin navigation">
+          <a href="{% url 'admin_entity_list' entity='products' %}" class="rounded-xl px-4 py-3 text-sm text-stone-300 transition hover:bg-white/5 hover:text-white">Inventory</a>
+          <a href="{% url 'admin_entity_list' entity='orders' %}" class="rounded-xl px-4 py-3 text-sm text-stone-300 transition hover:bg-white/5 hover:text-white">Orders</a>
+          <a href="{% url 'admin_entity_list' entity='artisans' %}" class="rounded-xl px-4 py-3 text-sm text-stone-300 transition hover:bg-white/5 hover:text-white">Artisans</a>
+          <a href="{% url 'admin_entity_list' entity='drops' %}" class="rounded-xl px-4 py-3 text-sm text-stone-300 transition hover:bg-white/5 hover:text-white">Drops</a>
+          <a href="{% url 'admin_entity_list' entity='order-items' %}" class="rounded-xl px-4 py-3 text-sm text-stone-300 transition hover:bg-white/5 hover:text-white">Order items</a>
+          <a href="#reporting" class="rounded-xl bg-amber-500/10 px-4 py-3 text-sm font-medium text-amber-400 transition hover:bg-amber-500/15">Reporting</a>
+        </nav>
+
+        <div class="mt-8 border-t border-white/10 pt-5 lg:mt-auto">
+          <a href="{% url 'home' %}" class="text-xs text-stone-500 transition hover:text-amber-400">← Back to storefront</a>
+          <p class="mt-3 text-[10px] text-stone-600">Signed in as {{ request.user.get_username }}</p>
+        </div>
+      </aside>
+
+      <main class="dashboard-content min-w-0 flex-1 px-5 py-7 sm:px-8 lg:px-10 lg:py-10">
+        <header class="mb-8 flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <p class="mb-2 text-xs font-medium uppercase tracking-[0.2em] text-amber-500">Overview</p>
+            <h1 class="text-3xl font-semibold tracking-tight sm:text-4xl">Admin dashboard</h1>
+            <p class="mt-2 text-sm text-stone-500">A clear view of sales, stock, and the makers behind each drop.</p>
+          </div>
+          <button type="button" onclick="window.print()" class="no-print rounded-xl border border-white/10 px-4 py-2.5 text-sm font-medium text-stone-300 transition hover:border-amber-500/50 hover:text-amber-400">
+            Print Dashboard
+          </button>
+        </header>
+
+        <section class="mb-8 grid gap-4 md:grid-cols-3" aria-label="Key metrics">
+          <article class="print-card rounded-2xl border border-white/[0.06] bg-[#242424] p-5 sm:p-6">
+            <p class="text-xs font-medium uppercase tracking-[0.14em] text-stone-500">Total revenue</p>
+            <p class="mt-5 text-3xl font-semibold tracking-tight text-amber-500">₩{{ total_revenue|floatformat:0 }}</p>
+            <p class="mt-2 text-xs text-stone-500">Across all recorded orders</p>
+          </article>
+          <article class="print-card rounded-2xl border border-white/[0.06] bg-[#242424] p-5 sm:p-6">
+            <p class="text-xs font-medium uppercase tracking-[0.14em] text-stone-500">Total items</p>
+            <p class="mt-5 text-3xl font-semibold tracking-tight text-amber-500">{{ total_items }}</p>
+            <p class="mt-2 text-xs text-stone-500">Units currently in inventory</p>
+          </article>
+          <article class="print-card rounded-2xl border border-white/[0.06] bg-[#242424] p-5 sm:p-6">
+            <p class="text-xs font-medium uppercase tracking-[0.14em] text-stone-500">Active artisans</p>
+            <p class="mt-5 text-3xl font-semibold tracking-tight text-amber-500">{{ active_artisans }}</p>
+            <p class="mt-2 text-xs text-stone-500">Makers in the CRAFTS HAPPY community</p>
+          </article>
+        </section>
+
+        <section class="mb-8 grid gap-4 sm:grid-cols-3" aria-label="Inventory status">
+          <article class="print-card flex items-center justify-between rounded-2xl border border-white/[0.06] bg-[#1A1A1A] p-5">
+            <div><p class="text-xs text-stone-500">In stock</p><p class="mt-2 text-2xl font-semibold text-stone-100">{{ stock_in_stock }}</p></div>
+            <span class="h-2.5 w-2.5 rounded-full bg-emerald-400"></span>
+          </article>
+          <article class="print-card flex items-center justify-between rounded-2xl border border-white/[0.06] bg-[#1A1A1A] p-5">
+            <div><p class="text-xs text-stone-500">Running low</p><p class="mt-2 text-2xl font-semibold text-stone-100">{{ stock_low }}</p></div>
+            <span class="h-2.5 w-2.5 rounded-full bg-amber-400"></span>
+          </article>
+          <article class="print-card flex items-center justify-between rounded-2xl border border-white/[0.06] bg-[#1A1A1A] p-5">
+            <div><p class="text-xs text-stone-500">Sold out</p><p class="mt-2 text-2xl font-semibold text-stone-100">{{ stock_sold_out }}</p></div>
+            <span class="h-2.5 w-2.5 rounded-full bg-rose-400"></span>
+          </article>
+        </section>
+
+        <section class="mb-8 rounded-2xl border border-white/[0.06] bg-[#1A1A1A] p-5 sm:p-7">
+          <div class="mb-6">
+            <p class="text-xs font-medium uppercase tracking-[0.16em] text-stone-500">Sales performance</p>
+            <h2 class="mt-2 text-lg font-semibold">Revenue by drop</h2>
+          </div>
+          <div class="relative h-72 w-full">
+            <canvas id="dropRevenueChart" aria-label="Revenue by drop bar chart" role="img"></canvas>
+          </div>
+        </section>
+
+        <section id="reporting" class="rounded-2xl border border-white/[0.06] bg-[#1A1A1A] p-5 sm:p-7">
+          <div class="mb-6">
+            <p class="text-xs font-medium uppercase tracking-[0.16em] text-amber-500">Reporting</p>
+            <h2 class="mt-2 text-lg font-semibold">Download reports</h2>
+            <p class="mt-1 text-sm text-stone-500">Export current accounting and inventory data for your records.</p>
+          </div>
+          <div class="grid gap-4 md:grid-cols-2">
+            <div class="rounded-xl border border-white/[0.06] bg-[#202020] p-5">
+              <h3 class="font-medium">Accounting</h3>
+              <p class="mt-1 text-xs text-stone-500">Orders, customers, dates, and totals</p>
+              <div class="no-print mt-5 flex flex-wrap gap-2">
+                <a href="{% url 'export_accounting_csv' %}" class="rounded-lg bg-amber-500 px-4 py-2 text-xs font-semibold text-[#171717] transition hover:bg-amber-400">Export CSV</a>
+                <a href="{% url 'export_accounting_pdf' %}" class="rounded-lg border border-white/10 px-4 py-2 text-xs font-semibold text-stone-300 transition hover:border-amber-500/50 hover:text-amber-400">Export PDF</a>
+              </div>
+            </div>
+            <div class="rounded-xl border border-white/[0.06] bg-[#202020] p-5">
+              <h3 class="font-medium">Inventory</h3>
+              <p class="mt-1 text-xs text-stone-500">Products, makers, drops, and available stock</p>
+              <div class="no-print mt-5 flex flex-wrap gap-2">
+                <a href="{% url 'export_inventory_csv' %}" class="rounded-lg bg-amber-500 px-4 py-2 text-xs font-semibold text-[#171717] transition hover:bg-amber-400">Export CSV</a>
+                <a href="{% url 'export_inventory_pdf' %}" class="rounded-lg border border-white/10 px-4 py-2 text-xs font-semibold text-stone-300 transition hover:border-amber-500/50 hover:text-amber-400">Export PDF</a>
+              </div>
+            </div>
+          </div>
+        </section>
+        <footer class="py-8 text-center text-[10px] tracking-[0.16em] text-stone-600">© {% now "Y" %} CRAFTS HAPPY</footer>
+      </main>
+    </div>
+    <script>
+      const dropLabels = JSON.parse("{{ drop_labels|escapejs }}");
+      const dropRevenues = JSON.parse("{{ drop_revenues|escapejs }}");
+      const chartContext = document.getElementById("dropRevenueChart");
+      new Chart(chartContext, {
+        type: "bar",
+        data: {
+          labels: dropLabels,
+          datasets: [{
+            label: "Revenue (₩)",
+            data: dropRevenues,
+            backgroundColor: "rgba(245, 158, 11, 0.78)",
+            borderColor: "#f59e0b",
+            borderWidth: 1,
+            borderRadius: 6,
+            maxBarThickness: 54
+          }]
+        },
+        options: {
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                label: (context) => ` ₩${Number(context.parsed.y).toLocaleString()}`
+              }
+            }
+          },
+          scales: {
+            x: {
+              grid: { display: false },
+              ticks: { color: "#a8a29e" },
+              border: { color: "rgba(255,255,255,.08)" }
+            },
+            y: {
+              beginAtZero: true,
+              grid: { color: "rgba(255,255,255,.07)" },
+              ticks: {
+                color: "#a8a29e",
+                callback: (value) => `₩${Number(value).toLocaleString()}`
+              },
+              border: { display: false }
+            }
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

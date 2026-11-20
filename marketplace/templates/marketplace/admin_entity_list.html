@@ -1,0 +1,61 @@
+{% extends "marketplace/admin_workspace_base.html" %}
+
+{% block title %}{{ entity_title }}{% endblock %}
+
+{% block content %}
+  <header class="mb-8 flex flex-wrap items-end justify-between gap-4">
+    <div>
+      <p class="mb-2 text-xs font-medium uppercase tracking-[0.2em] text-amber-500">Management</p>
+      <h1 class="text-3xl font-semibold tracking-tight sm:text-4xl">{{ entity_title }}</h1>
+      <p class="mt-2 text-sm text-stone-500">Create, update, and remove {{ entity_title|lower }}.</p>
+    </div>
+    <a href="{{ create_url }}" class="rounded-xl bg-amber-500 px-4 py-2.5 text-sm font-semibold text-[#171717] transition hover:bg-amber-400">Add {{ singular_title }}</a>
+  </header>
+
+  <section class="overflow-hidden rounded-2xl border border-white/[0.06] bg-[#1A1A1A]">
+    <div class="flex items-center justify-between border-b border-white/[0.06] px-5 py-4">
+      <h2 class="font-medium">{{ entity_title }}</h2>
+      <span class="text-xs text-stone-500">{{ page_obj.paginator.count }} total</span>
+    </div>
+    <div class="overflow-x-auto">
+      <table class="w-full min-w-[640px] text-left text-sm">
+        <thead class="bg-[#242424] text-xs uppercase tracking-wide text-stone-400">
+          <tr>
+            {% for column in columns %}<th scope="col" class="px-5 py-3 font-medium">{{ column }}</th>{% endfor %}
+            <th scope="col" class="px-5 py-3 text-right font-medium">Actions</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-white/[0.06]">
+          {% for record in records %}
+            <tr class="transition hover:bg-white/[0.02]">
+              {% for cell in record.cells %}<td class="max-w-72 px-5 py-4 text-stone-300">{{ cell }}</td>{% endfor %}
+              <td class="px-5 py-4">
+                <div class="flex justify-end gap-3">
+                  <a href="{{ record.edit_url }}" class="text-xs font-medium text-amber-400 hover:text-amber-300">Edit</a>
+                  <a href="{{ record.delete_url }}" class="text-xs font-medium text-rose-400 hover:text-rose-300">Delete</a>
+                </div>
+              </td>
+            </tr>
+          {% empty %}
+            <tr><td colspan="{{ columns|length|add:1 }}" class="px-5 py-12 text-center text-sm text-stone-500">No {{ entity_title|lower }} yet.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% if is_paginated %}
+      <nav class="flex items-center justify-between border-t border-white/[0.06] px-5 py-4 text-xs" aria-label="Pagination">
+        {% if page_obj.has_previous %}
+          <a href="?page={{ page_obj.previous_page_number }}" class="text-amber-400 hover:text-amber-300">← Previous</a>
+        {% else %}
+          <span class="text-stone-600">← Previous</span>
+        {% endif %}
+        <span class="text-stone-500">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+        {% if page_obj.has_next %}
+          <a href="?page={{ page_obj.next_page_number }}" class="text-amber-400 hover:text-amber-300">Next →</a>
+        {% else %}
+          <span class="text-stone-600">Next →</span>
+        {% endif %}
+      </nav>
+    {% endif %}
+  </section>
+{% endblock %}
